@@ -1,5 +1,9 @@
 # ちょっとした事のメモ
 
+## Python
+- matplotliｂ.pyplotが使えないとき
+http://qiita.com/Kodaira_/items/1a3b801c7a5a41c9ce49
+
 ## Atom
 
 - ctrl+shift+M : Markdownのプレビュー
@@ -31,3 +35,14 @@ http://www.symantec.com/connect/articles/how-install-symantec-endpoint-protectio
 - 以下のように登録しないとalternativesでは見えない  
 $ alternatives --install /usr/bin/java java /opt/jdk1.7.0_79/bin/java 1
 - http://www.task-notes.com/entry/20150530/1432954800
+
+### ibusのキーマップ設定（日本語）
+$setxkbmap -rules evdev -model jp106 -layout jp
+
+### virtualboxで共有ファイルをマウント
+1. (virtualboxを使っているならば)virtualboxから共有フォルダを設定する（今回はshareというフォルダ名にする）
+1. sudo mount -t vboxsf share /mnt/shareを実行。（/etc/fstabや/etc/rc.localに記述してもなぜか起動時にマウントしてくれない）
+
+## AWS
+### mfa認証
+google authenticator的なものを使うのが便利（コードは３０秒に一回書き換わる）
