@@ -36,13 +36,32 @@ http://www.symantec.com/connect/articles/how-install-symantec-endpoint-protectio
 $ alternatives --install /usr/bin/java java /opt/jdk1.7.0_79/bin/java 1
 - http://www.task-notes.com/entry/20150530/1432954800
 
-### ibusのキーマップ設定（日本語）
-$setxkbmap -rules evdev -model jp106 -layout jp
+### ibusのキーマップ設定（日本語 109の場合）
+$localectl set-keymap jp-OADG109A //設定
+$localectl　//確認
 
 ### virtualboxで共有ファイルをマウント
 1. (virtualboxを使っているならば)virtualboxから共有フォルダを設定する（今回はshareというフォルダ名にする）
 1. sudo mount -t vboxsf share /mnt/shareを実行。（/etc/fstabや/etc/rc.localに記述してもなぜか起動時にマウントしてくれない）
 
+### sudoユーザーを追加する
+- sudoユーザを追加していないと、sudo実行時に「ユーザ名 is not in the sudoers file.  This incident will be reported.」みたいに怒られる。
+- 以下のようにrootユーザでvisioを実行し、以下の場所にユーザを追加するように編集すればok  
+> \# visio  
+\#\# The COMMANDS section may have other options added to it.  
+\#\#  
+\#\# Allow root to run any commands anywhere
+root    ALL=(ALL)       ALL  
+ユーザ名    ALL=(ALL)       ALL   <ここを追加
+
 ## AWS
 ### mfa認証
 google authenticator的なものを使うのが便利（コードは３０秒に一回書き換わる）
+
+##R
+### R Studio ServerでPosgreSQLとつなぐ
+- Rを起動し、DBIとRPostgreSQLというパッケージを入れる  
+> \>install.packages("DBI")  
+> \>install.packages("RPostgreSQL")
+- RPostgreSQLが入らない場合はRを一旦終了し、postgresql-develをインストールする。(RStudio Serverの場合はサービスの再起動が必要?)  
+> $sudo yum install postgresql-devel
