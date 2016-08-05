@@ -8,26 +8,7 @@ http://qiita.com/Kodaira_/items/1a3b801c7a5a41c9ce49
 
 - ctrl+shift+M : Markdownのプレビュー
 
-## CentOSへのSymantec Endpoint Protectionのインストール方法
--
-http://mytracking.hatenablog.com/entry/2016/07/20/005256#インストールするLinuxのOS情報
 
-
-1. SymantecEndpointProtection.zipを作成し、適当なところに解凍（/tmp/sepとか）
-
-1. ↑のinstall.shの権限変更
-$chmod u+x install.sh
-
-1. oracle javaをインストール（ただインストールするだけではだめで、alternativesとかでしっかり指定すること）
-※alternativesとはhttp://www.task-notes.com/entry/20150530/1432954800
-
-1. glicなどのインストール
- $yum install glibc.i686 libgcc.i686 libX11.i686
-
-1. oracle javaのjceを入れ替える(/usr/java/jdk1.7.0.80/jre/lib/security/以下だった)
-http://www.symantec.com/connect/articles/how-install-symantec-endpoint-protection-1215-ru5-linux-operating-system
-
-1. install.shの実行
 
 ## Linux
 
@@ -54,14 +35,56 @@ $localectl　//確認
 root    ALL=(ALL)       ALL  
 ユーザ名    ALL=(ALL)       ALL   <ここを追加
 
+## CentOS
+
+### ネットワーク関連設定まとめ
+http://d.hatena.ne.jp/kanonji/20090130/1233334665
+
+### CentOSへのSymantec Endpoint Protectionのインストール方法
+-参考ページ:  
+http://mytracking.hatenablog.com/entry/2016/07/20/005256#インストールするLinuxのOS情報
+
+1. SymantecEndpointProtection.zipを作成し、適当なところに解凍（/tmp/sepとか）
+
+1. ↑のinstall.shの権限変更
+$chmod u+x install.sh
+
+1. oracle javaをインストール（ただインストールするだけではだめで、alternativesとかでしっかり指定すること）
+※alternativesとはhttp://www.task-notes.com/entry/20150530/1432954800
+
+1. glicなどのインストール
+ $yum install glibc.i686 libgcc.i686 libX11.i686
+
+1. oracle javaのjceを入れ替える(/usr/java/jdk1.7.0.80/jre/lib/security/以下だった)
+http://www.symantec.com/connect/articles/how-install-symantec-endpoint-protection-1215-ru5-linux-operating-system
+
+1. install.shの実行
+
 ## AWS
 ### mfa認証
 google authenticator的なものを使うのが便利（コードは３０秒に一回書き換わる）
 
 ##R
 ### R Studio ServerでPosgreSQLとつなぐ
-- Rを起動し、DBIとRPostgreSQLというパッケージを入れる  
+- Rを起動し、DBIとRPostgreSQLというパッケージを入れる（以下はCentOSで試した）  
 > \>install.packages("DBI")  
 > \>install.packages("RPostgreSQL")
-- RPostgreSQLが入らない場合はRを一旦終了し、postgresql-develをインストールする。(RStudio Serverの場合はサービスの再起動が必要?)  
+- RPostgreSQLが入らない場合はRを一旦終了し、postgresql-develをインストールしてから、RPostgreSQLを入れる。(RStudio Serverの場合はサービスの再起動が必要?)  
 > $sudo yum install postgresql-devel
+- 使い方  
+\> require("DBI")  # 必須ではない  
+\> require("RPostgreSQL")  
+\> con <- dbConnect(PostgreSQL(), host="hostname", port=port, dbname="dev", user="user", password="password")  
+\> dataset <- dbGetQuery(con,"SELECT * FROM users")  
+\> print(dataset)  
+http://qiita.com/junkonakajima/items/07ad8a227c6c586e1f99  
+http://www.task-notes.com/entry/20150825/1440471600
+
+### WindowsでRStudioの環境構築
+- Rの入手・インストール
+https://cran.ism.ac.jp/bin/windows/base/
+- RStudio Desktopの入手・インストール
+https://www.rstudio.com/products/rstudio/download2/
+- DBIとRPosgreSQLパッケージのインストール
+- 日本語が文字化けしたときはiconv()を使う
+http://overlap.hatenablog.jp/entry/2013/05/19/210432
