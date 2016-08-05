@@ -65,6 +65,9 @@ http://www.symantec.com/connect/articles/how-install-symantec-endpoint-protectio
 google authenticator的なものを使うのが便利（コードは３０秒に一回書き換わる）
 
 ##R
+### R専門の検索エンジン
+http://seekr.jp/
+
 ### R Studio ServerでPosgreSQLとつなぐ
 - Rを起動し、DBIとRPostgreSQLというパッケージを入れる（以下はCentOSで試した）  
 > \>install.packages("DBI")  
@@ -88,3 +91,7 @@ https://www.rstudio.com/products/rstudio/download2/
 - DBIとRPosgreSQLパッケージのインストール
 - 日本語が文字化けしたときはiconv()を使う
 http://overlap.hatenablog.jp/entry/2013/05/19/210432
+
+### 日本語の文字コード変換
+- for文を使うと極端に遅くなるので、apply関数を使うこと（下の例だと、50分→0.7秒）
+- adata <- data.frame(lapply(bdata[1], iconv, from="utf-8",to="cp932"))
