@@ -92,6 +92,14 @@ https://www.rstudio.com/products/rstudio/download2/
 - 日本語が文字化けしたときはiconv()を使う
 http://overlap.hatenablog.jp/entry/2013/05/19/210432
 
+- install.packages（）で入らないときは、直接パッケージを取ってきてインストールするしかなさそう   
+\> install.packages("~/Inamori/partykit_1.1-0.tar.gz", repos = NULL, type = "source")  
+https://cran.r-project.org/web/packages/available_packages_by_date.html
+
 ### 日本語の文字コード変換
 - for文を使うと極端に遅くなるので、apply関数を使うこと（下の例だと、50分→0.7秒）
 - adata <- data.frame(lapply(bdata[1], iconv, from="utf-8",to="cp932"))
+
+## その他
+- {RFinanceYJ}パッケージがうまく動かないとき
+http://qiita.com/HirofumiYashima/items/5807f3236a52c35e4974
