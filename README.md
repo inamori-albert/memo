@@ -83,6 +83,19 @@ http://seekr.jp/
 http://qiita.com/junkonakajima/items/07ad8a227c6c586e1f99  
 http://www.task-notes.com/entry/20150825/1440471600
 
+* PostgreSQLへのコネクションを一気に切断する方法
+> cons <- dbListConnections(PostgreSQL()) # すべてのコネクションのリストを取得
+> for(con in cons){
+>     results <- dbListResults(con) # コネクションに結びついたResultのリストを取得
+>     if(length(results) > 0){
+>         cat("remain\n")
+>         for(r in results){
+>             dbClearResult(r)　# Resultの消去
+>         }
+>     }
+>     dbDisconnect(con) # コネクションの切断
+> }
+
 ### WindowsでRStudioの環境構築
 - Rの入手・インストール
 https://cran.ism.ac.jp/bin/windows/base/
